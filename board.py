@@ -28,7 +28,15 @@ def game_logic(in_cell, neighbor_count):
 
 def read_board_file(filename):
     with open(filename) as f:
-        return f.read()
+        raw_board = f.read()
+    return raw_board
+
+def str_to_matrix(board_str):
+    # validate game board input and store dimensions
+    board_list = board_str.split('\n')
+    matrix = list([list(l) for l in board_list if len(l)])
+    print(pretty_print(matrix))
+    return matrix
 
 board_str = """......O.
 OOO...O.
@@ -37,7 +45,7 @@ OOO...O.
 ...OO...
 ...OO..."""
 
-def run_life(board_str, num_iter):
+def run_life(matrix, num_iter):
     def compute_next_board(start_state):
         # create matrix containing number of live neighbors for each cell
         live_neighbor_matrix = [[[start_state[y + n[0]][x + n[1]] for n in neighbors if n != (0, 0) and (0 <= y + n[0] < len(start_state) and x + n[1] >= 0 and x + n[1] < len(start_state[y]))].count('O') for x in board_width] for y in board_height]
@@ -45,28 +53,24 @@ def run_life(board_str, num_iter):
         end_state = [[game_logic(start_state[y][x], live_neighbor_matrix[y][x]) for x in board_width] for y in board_height]
         return end_state
 
-    # validate game board input and store dimensions
-    board_list = board_str.split('\n')
-    board_width = range(len(reduce(check_len, board_list))) # 8
-    board_height = range(len(board_list)) # 6
-    matrix = list([list(l) for l in board_list])
-    print(pretty_print(matrix))
+    # store dimensions of board
+    board_width = range(len(reduce(check_len, matrix)))  # 8
+    board_height = range(len(matrix))  # 6
 
-
-    print('')
-    # generate offsets of possible nieghbors
+    # generate offsets of possible neighbors
     neighbors = list(itertools.product([1, -1, 0], [1, -1, 0]))
-    # create empty game board
-    empty = list([[[] for j in board_width] for i in board_height])
+
     result = matrix.copy()
     for i in range(num_iter):
         result = compute_next_board(result)
-    print(pretty_print(result))
+        print(pretty_print(result))
 
-run_life(board_str,3)
+def main():
+    board = str_to_matrix(read_board_file('sample_board'))
+    run_life(board, 1)
 
 
-
+main()
 
 
 rules = """
