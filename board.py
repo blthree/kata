@@ -1,6 +1,6 @@
 import itertools
 from functools import reduce
-def pretty_print(matrix):
+def matrix_to_str(matrix):
     return '\n'.join([''.join([y for y in x]) for x in matrix]) +'\n'
 
 def check_len(x,y):
@@ -35,7 +35,7 @@ def str_to_matrix(board_str):
     # validate game board input and store dimensions
     board_list = board_str.split('\n')
     matrix = list([list(l) for l in board_list if len(l)])
-    print(pretty_print(matrix))
+    print(matrix_to_str(matrix))
     return matrix
 
 board_str = """......O.
@@ -60,14 +60,16 @@ def run_life(matrix, num_iter):
     # generate offsets of possible neighbors
     neighbors = list(itertools.product([1, -1, 0], [1, -1, 0]))
 
-    result = matrix.copy()
+    result = [matrix.copy()]
     for i in range(num_iter):
-        result = compute_next_board(result)
-        print(pretty_print(result))
+        # run game and append to list of each board state
+        result.append(compute_next_board(result[-1]))
+    return result
 
 def main():
     board = str_to_matrix(read_board_file('sample_board'))
-    run_life(board, 1)
+    # print latest board state
+    print(matrix_to_str(run_life(board, 1)[-1]))
 
 
 main()
