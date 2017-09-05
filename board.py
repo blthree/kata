@@ -1,7 +1,7 @@
 import itertools
 from functools import reduce
 def matrix_to_str(matrix):
-    return '\n'.join([''.join([y for y in x]) for x in matrix]) +'\n'
+    return '\n' + '\n'.join([''.join([y for y in x]) for x in matrix]) + '\n'
 
 def check_len(x,y):
     if len(x) == len(y):
@@ -35,7 +35,7 @@ def str_to_matrix(board_str):
     # validate game board input and store dimensions
     board_list = board_str.split('\n')
     matrix = list([list(l) for l in board_list if len(l)])
-    print(matrix_to_str(matrix))
+    #print(matrix_to_str(matrix))
     return matrix
 
 board_str = """......O.
@@ -66,13 +66,13 @@ def run_life(matrix, num_iter):
         result.append(compute_next_board(result[-1]))
     return result
 
-def main():
-    board = str_to_matrix(read_board_file('sample_board'))
+#def main():
+   # board = str_to_matrix(read_board_file('sample_board'))
     # print latest board state
-    print(matrix_to_str(run_life(board, 1)[-1]))
+   # print(matrix_to_str(run_life(board, 1)[-1]))
 
 
-main()
+#main()
 
 
 rules = """

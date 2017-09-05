@@ -1,44 +1,51 @@
 #!/usr/bin/env python
 #
 
-# import modules used here -- sys is a very standard one
+
 import sys, argparse, logging
+from board import run_life, str_to_matrix, matrix_to_str, read_board_file
 
 
-# Gather our code in a main() function
+# Run simulation
 def main(args, loglevel):
     logging.basicConfig(format="%(levelname)s: %(message)s", level=loglevel)
+    cycles = int(args.cycles)
+    # print latest board state
 
-    # TODO Replace this with your actual code.
-    print
-    "Hello there."
-    logging.info("You passed an argument.")
-    logging.debug("Your Argument: %s" % args.argument)
+    logging.info("Running simulation for {0} cycle(s) using file: {1} as starting board".format(args.cycles, args.board_file))
+    board = str_to_matrix(read_board_file(args.board_file))
+    print(matrix_to_str(run_life(board, cycles)[-1]))
 
 
-# Standard boilerplate to call the main() function to begin
-# the program.
+
+# define and parse CLI arguments
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description="Does a thing to some stuff.",
-        epilog="As an alternative to the commandline, params can be placed in a file, one per line, and specified on the commandline like '%(prog)s @params.conf'.",
-        fromfile_prefix_chars='@')
+        description="Conway's Game of Life Simulator")
     # TODO Specify your real parameters here.
     parser.add_argument(
-        "argument",
-        help="pass ARG to the program",
-        metavar="ARG")
+        "board_file",
+        help="File containing game board",
+        metavar="BOARD_FILE")
     parser.add_argument(
         "-v",
         "--verbose",
         help="increase output verbosity",
         action="store_true")
+    parser.add_argument(
+        "-c",
+        "--cycles",
+        help="# of simulation cycles, defaults to 1 if blank")
     args = parser.parse_args()
-
     # Setup logging
     if args.verbose:
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
+    # run simulation for 1 cycle if unless otherwise specified
+    if not args.cycles:
+         args.cycles = 1
+
+
 
     main(args, loglevel)
