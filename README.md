@@ -41,7 +41,7 @@ Final Board State:
 ...OO...
 
 ```
-###Options
+### Options
 ```
 usage: kata.py [-h] [-v] [-c CYCLES] BOARD_FILE
 Conway's Game of Life Simulator
@@ -58,11 +58,11 @@ optional arguments:
 
 ```
 
-```angular2html
+```
 BOARD_FILE            File containing game board
 ```
 The board file should be a plain-text file containing any number of rows of equal widths (can be with or without newline at end of file). An example board is provided in `sample_board.txt`:
-```angular2html
+```
 ......O.
 OOO...O.
 ......O.
@@ -74,11 +74,11 @@ OOO...O.
 ```
 -h, --help            show this help message and exit
 ```
-```angular2html
+```
 -v, --verbose          -v, --verbose         displays intermediate board states as well as starting and final states
 ```
 Displays starting and intermediate board states as well as the final state.
-```angular2html
+```
 -c CYCLES, --cycles CYCLES
                         # of simulation cycles, defaults to 1 if blank
 ```
