@@ -17,6 +17,17 @@ Rules of the game:
 5. A	cell’s	neighbors	are	those	cells	which	are	horizontally,	vertically	or	
 diagonally	adjacent.	Most	cells	will	have	eight	neighbors.	Cells	placed	on	the	
 edge	of	the	grid	will	have	fewer.
+## Setup
+Python 3.5 or greater is the only requirement. No outside libraries or packages are needed. 
+
+**Using zip file:**
+    
+Unzip and open the extracted directory
+    
+**Using git:**
+ 
+ `git clone https://github.com/blthree/kata`
+
 ## Running the simulation
 
 This simulator runs as a Command-line application
@@ -54,7 +65,7 @@ optional arguments:
   -v, --verbose         displays intermediate board states as well as starting
                         and final states
   -c CYCLES, --cycles CYCLES
-                        # of simulation cycles, defaults to 1 if blank
+                        # of simulation cycles, defaults to 1 if omitted
 
 ```
 
@@ -80,8 +91,9 @@ OOO...O.
 Displays starting and intermediate board states as well as the final state.
 ```
 -c CYCLES, --cycles CYCLES
-                        # of simulation cycles, defaults to 1 if blank
+                        # of simulation cycles, defaults to 1 if omitted
 ```
+Number of cycles to run the simulation. 
 ## Unit Tests
 To run unit tests (from project directory):
 `python -m unittest tests`       

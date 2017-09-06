@@ -35,7 +35,7 @@ if __name__ == '__main__':
     parser.add_argument(
         "-c",
         "--cycles",
-        help="# of simulation cycles, defaults to 1 if blank")
+        help="# of simulation cycles, defaults to 1 if omitted")
     args = parser.parse_args()
     # Setup logging
     if args.verbose:
