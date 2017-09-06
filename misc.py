@@ -21,7 +21,7 @@ def get_neighbors(matrix):
 for n in neighbors:
     for i in range(0,6):
         for j in range(0,8):
-            if n != (0, 0) and (0 <= i + n[0] < len(matrix) and j + n[1] >= 0 and j + n[1] < len(matrix[i])):
+            if n != (0, 0) and (0 <= i + n[0] < len(matrix) and 0 <= j + n[1] < len(matrix[i])):
                 empty[i][j].append(matrix[i+n[0]][j+n[1]])
 
 # old game logic in nested for loops

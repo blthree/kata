@@ -1,21 +1,21 @@
 #!/usr/bin/env python
-#
 
 
-import sys, argparse, logging
+import argparse
+import logging
 from board import run_life, str_to_matrix, matrix_to_str, read_board_file
 
 
 # Run simulation
 def main(args, loglevel):
     logging.basicConfig(format="%(levelname)s: %(message)s", level=loglevel)
-    cycles = int(args.cycles)
-    # print latest board state
+    logging.info("Running simulation for {0} cycle(s) using file: '{1}' as starting board"
+                 .format(args.cycles, args.board_file))
 
-    logging.info("Running simulation for {0} cycle(s) using file: {1} as starting board".format(args.cycles, args.board_file))
     board = str_to_matrix(read_board_file(args.board_file))
-    print(matrix_to_str(run_life(board, cycles)[-1]))
-
+    output = run_life(board, int(args.cycles))
+    print("Initial Board State: {0}".format(matrix_to_str(output[0])))
+    print("Final Board State: {0}".format(matrix_to_str(output[-1])))
 
 
 # define and parse CLI arguments
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     parser.add_argument(
         "-v",
         "--verbose",
-        help="increase output verbosity",
+        help="displays intermediate board states as well as starting and final state",
         action="store_true")
     parser.add_argument(
         "-c",
@@ -44,8 +44,6 @@ if __name__ == '__main__':
         loglevel = logging.INFO
     # run simulation for 1 cycle if unless otherwise specified
     if not args.cycles:
-         args.cycles = 1
-
-
+        args.cycles = 1
 
     main(args, loglevel)
